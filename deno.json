@@ -1,0 +1,19 @@
+{
+  "imports": {
+    "oak": "hhttps://deno.land/x/oak@v12.6.0/mod.ts"
+  },
+  "tasks": {
+    "dev": "deno run --watch --allow-net --allow-read --allow-env src/index.ts"
+  },
+  "compilerOptions": {
+    "strict": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true
+  }
+}
