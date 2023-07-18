@@ -1,8 +1,8 @@
 import { Application } from "https://deno.land/x/oak@v12.6.0/mod.ts";
 
-import { logger } from "./logger.ts";
 import { router } from "./routes.ts";
 import { getEnv } from "./helpers/get-env.ts";
+import { loggerMiddleware } from "./middlewares/logger-middleware.ts";
 
 export async function startApp() {
   const { APP_HOST, APP_PORT } = await getEnv();
@@ -13,7 +13,7 @@ export async function startApp() {
     console.error(evt.error);
   });
 
-  app.use(logger);
+  app.use(loggerMiddleware);
   app.use(router.routes());
   app.use((ctx) => {
     ctx.response.status = 404;
