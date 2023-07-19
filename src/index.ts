@@ -1,12 +1,13 @@
 import { Application } from "https://deno.land/x/oak@v12.6.0/mod.ts";
 
-import { router } from "./routes.ts";
-import { getEnv } from "./helpers/get-env.ts";
 import { loggerMiddleware } from "./middlewares/logger-middleware.ts";
 
-export async function startApp() {
-  const { APP_HOST, APP_PORT } = await getEnv();
+import { router } from "./routes.ts";
+import { getEnv } from "./helpers/get-env.ts";
 
+const { APP_HOST, APP_PORT } = await getEnv();
+
+export async function startApp() {
   const app = new Application();
 
   app.addEventListener("error", (evt) => {

@@ -4,7 +4,15 @@ import {
   Header,
 } from "https://deno.land/x/djwt@v2.9.1/mod.ts";
 
-const key = await crypto.subtle.generateKey(
+import { getEnv } from "./get-env.ts";
+
+await getEnv(); // this MUST be called here to set up Deno.env before using it
+const JWT_KEY = Deno.env.get("JWT_KEY");
+const keyBuff = new TextEncoder().encode(JWT_KEY);
+
+export const key = await crypto.subtle.importKey(
+  "raw",
+  keyBuff,
   { name: "HMAC", hash: "SHA-512" },
   true,
   ["sign", "verify"],
@@ -28,8 +36,9 @@ export async function getAuthToken(
   return jwt;
 }
 
-export async function getRefreshToken() {
+export async function getRefreshToken(userId: string) {
   const jwt = await create(header, {
+    userId,
     exp: getNumericDate(REFRESH_TOKEN_EXP_TIME_SEC),
   }, key);
   return jwt;

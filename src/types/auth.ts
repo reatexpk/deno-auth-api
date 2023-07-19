@@ -17,3 +17,7 @@ export type RegisterRequest = {
 };
 
 export type RegisterResponse = Session;
+
+export type RefreshTokenRequest = {
+  refreshToken: string;
+}
