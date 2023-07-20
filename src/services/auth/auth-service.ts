@@ -18,9 +18,7 @@ import {
  * @returns Session – pair of tokens
  * @throws {WrongCredentialsError, GenericAuthError}
  */
-export async function loginUser(
-  userData: LoginRequest,
-): Promise<Session> {
+export async function loginUser(userData: LoginRequest): Promise<Session> {
   try {
     const user = await UserRepository.getUserByLogin(userData.login);
     if (!user) {
@@ -28,7 +26,7 @@ export async function loginUser(
     }
     const result = await bcrypt.compare(
       userData.password,
-      user.encryptedPassword,
+      user.encryptedPassword
     );
     if (!result) {
       throw new WrongCredentialsError();
@@ -58,7 +56,7 @@ export async function loginUser(
  * @throws {RegistrationError, GenericAuthError}
  */
 export async function registerUser(
-  userData: RegisterRequest,
+  userData: RegisterRequest
 ): Promise<Session & { id: string }> {
   try {
     const salt = await bcrypt.genSalt(8);
@@ -84,10 +82,10 @@ export async function registerUser(
     return { accessToken, refreshToken, id: createdUser.id.toString() };
   } catch (e) {
     console.error(e);
-    const error = e instanceof GenericAuthError ||
-        e instanceof RegistrationError
-      ? e
-      : new GenericAuthError();
+    const error =
+      e instanceof GenericAuthError || e instanceof RegistrationError
+        ? e
+        : new GenericAuthError();
     throw error;
   }
 }
