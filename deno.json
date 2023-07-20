@@ -3,7 +3,7 @@
     "oak": "hhttps://deno.land/x/oak@v12.6.0/mod.ts"
   },
   "tasks": {
-    "dev": "deno run --watch --allow-net --allow-read --allow-env src/index.ts"
+    "dev": "deno run --watch --allow-net --allow-read --allow-env src/app.ts"
   },
   "compilerOptions": {
     "strict": true,
