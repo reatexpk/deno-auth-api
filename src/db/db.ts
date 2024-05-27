@@ -6,10 +6,11 @@ export class Database {
   public static async getClient(): Promise<Client> {
     if (!Database.#client) {
       Database.#client = new Client({
-        user: "user",
+        user: "deno",
+        password: "deno-api-password",
         database: "test",
         hostname: "localhost",
-        port: 5555,
+        port: 5432,
       });
     }
 
